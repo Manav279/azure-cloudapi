@@ -45,3 +45,16 @@ async def delete_file(blob: str):
      except ResourceNotFoundError:
             status = "File does not exist"
      return status
+
+#  ----- Download a Blob -----
+@app.get("/download/{blob}")
+async def get_blob(blob: str):
+    blob_client = blob_service_client.get_blob_client(container, blob=blob)
+    try:
+        blob_data = blob_client.download_blob()
+        file = open("downloads/{}".format(blob), "wb")
+        file.write(blob_data.readall())
+        status = "Successfully Downloaded Blob {}".format(blob)
+    except ResourceNotFoundError:
+        status = "File does not exist"
+    return {"status": status}
