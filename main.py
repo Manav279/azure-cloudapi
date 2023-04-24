@@ -58,3 +58,15 @@ async def get_blob(blob: str):
     except ResourceNotFoundError:
         status = "File does not exist"
     return {"status": status}
+
+#  ----- Get List of Blobs in Storage -----
+@app.get("/list")
+async def list_files():
+    list_blobs = []
+    container_client = blob_service_client.get_container_client(container)
+    blobs = container_client.list_blobs()
+    for blob in blobs:
+        list_blobs.append({"Name": blob['name'], "Size": blob['size']})
+    if len(list_blobs) == 0:
+             list_blobs.append({"status": "No Blobs in Storage"})
+    return list_blobs
