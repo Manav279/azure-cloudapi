@@ -33,3 +33,15 @@ async def upload_file(loc: str):
         except ResourceExistsError:
              status = "File already exists"
     return {"status": status}
+
+#  ----- Delete File from Storage -----
+@app.get("/delete/{blob}")
+async def delete_file(blob: str):
+     container_client = blob_service_client.get_container_client(container)
+     blobs = container_client.list_blobs()
+     try:
+            container_client.delete_blob(blob)
+            status = "Successfully Deleted Blob {}".format(blob)
+     except ResourceNotFoundError:
+            status = "File does not exist"
+     return status
