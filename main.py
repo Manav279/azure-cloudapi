@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from azure.storage.blob import BlobServiceClient
 from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
+import os
+from datetime import datetime
 
 # Enter your azure storage account connection string
 storage_conn_str = "[Your Storage Account Connection String]"
@@ -8,6 +10,24 @@ storage_conn_str = "[Your Storage Account Connection String]"
 container = "[Storage Container Name]"
 
 blob_service_client = BlobServiceClient.from_connection_string(storage_conn_str)
+
+# Function for adding logs of commands into file CloudAPILogs.txt (can change name)
+def addLog(cmmd, file_name):
+    log_file_name = "CloudAPILogs.txt" # Log File Name
+    # You can also add log file into a directory by changeing name to "[directory_name]/[log_file_name].txt"
+    # but make sure directory already exists in system to prevent error
+    currTime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    logfile = open(log_file_name, "a")
+    match cmmd:
+        case "upload": 
+            logfile.write("{} => Uploaded file {}\n".format(currTime, file_name))
+        case "delete": 
+            logfile.write("{} => Deleted file {}\n".format(currTime, file_name))
+        case "download": 
+            logfile.write("{} => Downloaded file {}\n".format(currTime, file_name))
+        case "list": 
+            logfile.write("{} => Generated list of files\n".format(currTime))
+    logfile.close()
 
 # Creating a FastAPI Application
 app = FastAPI(
