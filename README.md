@@ -27,18 +27,21 @@ To use the CloudAPI, follow these steps:
 3. Add your Storage Account Connection String in main.py in variable `storage_conn_str` (Line 8)
 4. Add your Container Name in main.py in variable `container` (Line 10)
 5. In terminal change directory to where main.py is present, execute command `uvicorn main:app --reload`
+
     Note: If error is thrown, try command `python -m uvicorn main:app --reload`
 6. API is running, use URL `http://127.0.0.1:8000` to interact with API
 
 # Changing Downloads Folder
-Files downloaded are by default stored in `Downloads/`
+Files downloaded are by default stored in `Downloads/`. 
 Downloads directory can be changed by changing the `downloads_path` in main.py
+
    Note: If you change the path, make sure following directory already exists to prevent errors 
 
 # Changing Logs File
-Operation Logs by default are stored in `CloudAPILogs.txt`
-Log file name can be changed by chaning the variable `log_file_name`
+Operation Logs by default are stored in `CloudAPILogs.txt`. 
+Log file name can be changed by chaning the variable `log_file_name`. 
 You can also add log file into a directory by changeing name to `[directory_name]/[log_file_name].txt`
+
     Note: Make sure directory already exists in system to prevent error
 
 # Command Examples
