@@ -35,14 +35,14 @@ To use the CloudAPI, follow these steps:
 Files downloaded are by default stored in `Downloads/`. 
 Downloads directory can be changed by changing the `downloads_path` in main.py
 
-   Note: If you change the path, make sure following directory already exists to prevent errors 
+Note: If you change the path, make sure following directory already exists to prevent errors 
 
 # Changing Logs File
 Operation Logs by default are stored in `CloudAPILogs.txt`. 
 Log file name can be changed by chaning the variable `log_file_name`. 
-You can also add log file into a directory by changeing name to `[directory_name]/[log_file_name].txt`
+You can also add log file into a directory by changeing name to `[directory_name]/[log_file_name].txt`.
 
-    Note: Make sure directory already exists in system to prevent error
+Note: Make sure directory already exists in system to prevent error
 
 # Command Examples
 
