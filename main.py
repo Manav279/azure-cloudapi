@@ -70,9 +70,11 @@ async def delete_file(blob: str):
 @app.get("/download/{blob}")
 async def get_blob(blob: str):
     blob_client = blob_service_client.get_blob_client(container, blob=blob)
+    download_path = "Downloads/" # Path where files will be downloaded
+    # If you change the path, make sure following directory already exists to prevent errors
     try:
         blob_data = blob_client.download_blob()
-        file = open("downloads/{}".format(blob), "wb")
+        file = open("{}{}".format(download_path, blob), "wb")
         file.write(blob_data.readall())
         status = "Successfully Downloaded Blob {}".format(blob)
     except ResourceNotFoundError:
