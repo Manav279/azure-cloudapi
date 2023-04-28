@@ -8,27 +8,27 @@ from configparser import ConfigParser
 config = ConfigParser()
 config.read("config.ini")
 
+# Importing Connection String and Conatiner Name
 conn_str = config['storageacc']['conn_str'][1:-1]
 container = config['storageacc']['container'][1:-1]
 blob_service_client = BlobServiceClient.from_connection_string(conn_str)
 
-# Function for adding logs of commands into file CloudAPILogs.txt (can change name)
+# Function for adding logs of commands into Log File
 def addLog(cmmd, blob_name):
-    log_file_name = "CloudAPILogs.txt" # Log File Name
-    # You can also add log file into a directory by changeing name to "[directory_name]/[log_file_name].txt"
-    # but make sure directory already exists in system to prevent error
-    currTime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    logfile = open(log_file_name, "a")
-    match cmmd:
-        case "upload": 
-            logfile.write("{} => Uploaded Blob {}\n".format(currTime, blob_name))
-        case "delete": 
-            logfile.write("{} => Deleted Blob {}\n".format(currTime, blob_name))
-        case "download": 
-            logfile.write("{} => Downloaded Blob {}\n".format(currTime, blob_name))
-        case "list": 
-            logfile.write("{} => Generated list of Blobs\n".format(currTime))
-    logfile.close()
+    if config.getboolean('settings', 'logOperations'):
+        log_file_name = config['settings']['logFileName'][1:-1]
+        currTime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        logfile = open(log_file_name, "a")
+        match cmmd:
+            case "upload": 
+                logfile.write("{} => Uploaded Blob {}\n".format(currTime, blob_name))
+            case "delete": 
+                logfile.write("{} => Deleted Blob {}\n".format(currTime, blob_name))
+            case "download": 
+                logfile.write("{} => Downloaded Blob {}\n".format(currTime, blob_name))
+            case "list": 
+                logfile.write("{} => Generated list of Blobs\n".format(currTime))
+        logfile.close()
 
 # Creating a FastAPI Application
 app = FastAPI(
@@ -79,8 +79,7 @@ async def deleteBlob(blob: str):
 async def downloadBlob(blob: str):
     if config.getboolean('permissions', 'allowDownload'):
         blob_client = blob_service_client.get_blob_client(container, blob=blob)
-        downloads_path = "Downloads/" # Path where blobs will be downloaded
-        # If you change the path, make sure following directory already exists to prevent errors
+        downloads_path = config['settings']['downloadsPath'][1:-1]
         try:
             blob_data = blob_client.download_blob()
             file = open("{}{}".format(downloads_path, blob), "wb")
