@@ -1,4 +1,4 @@
-# azure-cloudapi v0.2.0
+# azure-cloudapi v1.1.0
 
 ## A fully functional API to access Azure Storage Account in Python with ease!
 
@@ -13,7 +13,9 @@ Operations Provided:
 # Features:
 - Access Storage Account using code with ease, without repeating unnecessary steps.
 - Generate Logs of all operations performed on the Storage with proper Date and Time of operation.
-- API built using FastAPI
+- Config File to change settings separately from main file.
+- Enable/Disable operations inside config file.
+- API built using FastAPI.
 
 # How to use API
 To use the CloudAPI, follow these steps:
@@ -24,8 +26,8 @@ To use the CloudAPI, follow these steps:
     - Uvicorn - `pip install "uvicorn[standard]"`
     - Azure Exceptions - `pip install azure-core`
     - Azure Storage - `pip install azure-storage-blob`
-3. Add your Storage Account Connection String in main.py in variable `storage_conn_str` (Line 8)
-4. Add your Container Name in main.py in variable `container` (Line 10)
+3. Add your Storage Account Connection String in config.ini in variable `conn_str` (Line 2)
+4. Add your Container Name in config.ini in variable `container` (Line 3)
 5. In terminal change directory to where main.py is present, execute command `uvicorn main:app --reload`
 
     Note: If error is thrown, try command `python -m uvicorn main:app --reload`
@@ -33,13 +35,13 @@ To use the CloudAPI, follow these steps:
 
 # Changing Downloads Folder
 Files downloaded are by default stored in `Downloads/`. 
-Downloads directory can be changed by changing the `downloads_path` in main.py
+Downloads directory can be changed by changing the `downloadsPath` in config.ini (Line 20)
 
 Note: If you change the path, make sure following directory already exists to prevent errors 
 
 # Changing Logs File
 Operation Logs by default are stored in `CloudAPILogs.txt`. 
-Log file name can be changed by chaning the variable `log_file_name`. 
+Log file name can be changed by chaning the variable `logFileName` in config.ini (Line 16)
 You can also add log file into a directory by changeing name to `[directory_name]/[log_file_name].txt`.
 
 Note: Make sure directory already exists in system to prevent error
@@ -60,8 +62,8 @@ Note: Make sure directory already exists in system to prevent error
 
 # Future Additions
 
-- Config File
-- User Authentication
-- Blob Name increment for blobs with same names
-- FastAPI Documentation
-- Storing Logs in Cloud
+- [x] Config File
+- [ ] User Authentication
+- [ ] Blob Name increment for blobs with same names
+- [ ] FastAPI Documentation
+- [ ] Storing Logs in Cloud
