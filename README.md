@@ -1,4 +1,4 @@
-# azure-cloudapi v1.0.0
+# azure-cloudapi v1.1.0
 
 ## A fully functional API to access Azure Storage Account in Python with ease!
 
@@ -35,13 +35,13 @@ To use the CloudAPI, follow these steps:
 
 # Changing Downloads Folder
 Files downloaded are by default stored in `Downloads/`. 
-Downloads directory can be changed by changing the `downloads_path` in main.py
+Downloads directory can be changed by changing the `downloadsPath` in config.ini (Line 20)
 
 Note: If you change the path, make sure following directory already exists to prevent errors 
 
 # Changing Logs File
 Operation Logs by default are stored in `CloudAPILogs.txt`. 
-Log file name can be changed by chaning the variable `log_file_name`. 
+Log file name can be changed by chaning the variable `logFileName` in config.ini (Line 16)
 You can also add log file into a directory by changeing name to `[directory_name]/[log_file_name].txt`.
 
 Note: Make sure directory already exists in system to prevent error
